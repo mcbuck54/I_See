@@ -11,6 +11,13 @@ import AVFoundation
 struct ContentView: View {
     @State private var name : String = "find item 1"
     var body: some View {
+        
+        let isLogging: Bool = true
+        
+        if isLogging {
+            createLogFile()
+            NSLog("starting")
+
         VStack {
             TextField("Name", text: $name)
                 .padding()
@@ -27,6 +34,37 @@ struct ContentView: View {
         }
     }
 }
+    
+    
+    private func parseJSON() {
+        print("entering parseJSON")
+        NSLog("Entering parseJSON ")
+        guard let path = Bundle.main.path(forResource: "testdata", ofType: "json") else {
+            //            Logger.shared.debugPrint("Path: \(path)")
+            return
+        }
+        let url = URL(fileURLWithPath: path)
+        Logger.shared.debugPrint("URL: \(url)")
+        var result: Result?
+        do {
+            let jsonData = try Data(contentsOf: url)
+            result = try JSONDecoder().decode(Result.self, from: jsonData)
+            
+            if let result = result {
+                print(result)
+            } else {
+                print("Failed to parse")
+            }
+            return
+        }
+        
+        catch {
+            print("error: \(error)")
+        }
+    }
+    
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
