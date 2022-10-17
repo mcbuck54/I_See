@@ -11,26 +11,27 @@ import AVFoundation
 struct ContentView: View {
     @State private var name : String = "find item 1"
     var body: some View {
+        Text("Hello, world!")
+     let isLogging: Bool = true
         
-        let isLogging: Bool = true
-        
-        if isLogging {
-            createLogFile()
-            NSLog("starting")
-
         VStack {
             TextField("Name", text: $name)
                 .padding()
     
             Button("Greet") {
+                if isLogging {
+                    createLogFile()
+                    NSLog("starting")
+
                 let utterance = AVSpeechUtterance(string: "Hello \(name)")
                 utterance.voice = AVSpeechSynthesisVoice(language: "en-au")
                 utterance.rate = 0.3
                 let synthesizer = AVSpeechSynthesizer()
                 synthesizer.speak(utterance)
-            }
+parseJSON()
             
-            Text("Hello, world!")
+
+                }
         }
     }
 }
