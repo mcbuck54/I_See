@@ -11,6 +11,7 @@ import AVFoundation
 struct ContentView: View {
     @State private var name : String = "find item 1"
     var body: some View {
+
         Text("Hello, world!")
      let isLogging: Bool = true
         
@@ -40,16 +41,16 @@ parseJSON()
     private func parseJSON() {
         print("entering parseJSON")
         NSLog("Entering parseJSON ")
-        guard let path = Bundle.main.path(forResource: "testdata", ofType: "json") else {
+        guard let path = Bundle.main.path(forResource: "Items", ofType: "json") else {
             //            Logger.shared.debugPrint("Path: \(path)")
             return
         }
         let url = URL(fileURLWithPath: path)
         Logger.shared.debugPrint("URL: \(url)")
-        var result: Result?
+        var result: Result2?
         do {
             let jsonData = try Data(contentsOf: url)
-            result = try JSONDecoder().decode(Result.self, from: jsonData)
+            result = try JSONDecoder().decode(Result2.self, from: jsonData)
             
             if let result = result {
                 print(result)
